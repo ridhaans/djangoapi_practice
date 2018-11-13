@@ -29,7 +29,7 @@ class Movie(models.Model):
     director=models.CharField(max_length=255)
     writer=models.CharField(max_length=255)
 
-    REQUIRED_FIELD=['title']
+    REQUIRED_FIELDS=['title']
 
     objects=MovieManager()
     
@@ -70,7 +70,7 @@ class UserProfile(AbstractBaseUser,PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD='email'
-    REQUIRED_FIELD=['name']
+    REQUIRED_FIELDS=['name']
 
     def get_name(self):
         
