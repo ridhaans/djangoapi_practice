@@ -14,4 +14,8 @@ class UserProfilesSerializer(serializers.Serializer):
     """Serialize a name field for testing UserProfiles APIView"""
     
     name=serializers.CharField(max_length=100)
+    email=serializers.EmailField(max_length=100)
+    password=serializers.CharField(max_length=100,min_length=8,style={'input type':'password'})
+    password_confirmation=serializers.CharField(max_length=100,min_length=8,style={'input type':'password','placeholder':"re-enter your password to confirm"})
+    
     
