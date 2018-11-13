@@ -68,6 +68,9 @@ class MoviesApiView(APIView):
             return Response({'message':f'Information about {title}({year}) is succesfully deleted'})
 
 class MoviesViewSet(viewsets.ViewSet):
+
+    serializer_class=serializers.MoviesSerializer
+
     def list(self,request):
         a_viewset=[
             'Uses actions (list, create, retrieve, update, partial update) ',
@@ -75,7 +78,27 @@ class MoviesViewSet(viewsets.ViewSet):
             'more functionality with less code'
         ]
         return Response({'message':'Movies', 'a_viewset':a_viewset})
-
+    def create(self,request):
+        serializer = serializers.MoviesSerializer(data=request.data)
+        if serializer.is_valid():
+            title=serializer.data.get('title')
+            year=serializer.data.get('year')
+            return Response({'message':f'Information about {title}({year}) is succesfully added to the database'})
+        else:
+            return Response(
+                serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+    def retrieve(self,request,pk=None):
+        return Response({'http_method:''GET'})
+        
+    def update(self,request,pk=None):
+        return Response({'http_method:''PUT'})
+        
+    def partial_update(self,request,pk=None):
+        return Response({'http_method:''PATCH'})
+        
+    def destroy(self,request,pk=None):
+        return Response({'http_method:''DELETE'})
 
 
 class UserProfilesApiView(APIView):
