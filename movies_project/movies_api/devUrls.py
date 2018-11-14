@@ -6,11 +6,14 @@ from rest_framework.routers import DefaultRouter
 from  . import views
 
 router=DefaultRouter()
-router.register('movies-viewset', views.MoviesViewSet,base_name='movies-viewset')
+
+router.register('movie', views.MovieViewSet)
+router.register('user', views.UserProfileViewSet)
 
 urlpatterns=[
-    path('movies/',views.MoviesApiView.as_view()),
-    path('',include(router.urls)),
+    path('movies/',views.MoviesApiView.as_view()),    
     path('users/',views.UserProfilesApiView.as_view()),
+    path('',include(router.urls)),
+    
 
 ]

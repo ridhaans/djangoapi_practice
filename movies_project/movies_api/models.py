@@ -24,7 +24,7 @@ class Movie(models.Model):
     """Represents a movie"""""
     
     title=models.CharField(max_length=255, unique=True)
-    duration=models.DurationField()
+    duration=models.DurationField("Duration (minutes)")    
     year=models.IntegerField()
     director=models.CharField(max_length=255)
     writer=models.CharField(max_length=255)

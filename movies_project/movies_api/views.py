@@ -5,12 +5,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from . import serializers
+from . import models
 
 # Create your views here.
 #developer's defined logic for the api
 class MoviesApiView(APIView):
 
-    serializer_class=serializers.MoviesSerializer
+    serializer_class=serializers.MovieSerializer
 
     def get(self, request, format=None):
 
@@ -26,7 +27,7 @@ class MoviesApiView(APIView):
     def post(self,request):
         """Tells the duration of the film"""
 
-        serializer = serializers.MoviesSerializer(data=request.data)
+        serializer = serializers.MovieSerializer(data=request.data)
 
         if serializer.is_valid():
             title=serializer.data.get('title')
@@ -67,43 +68,44 @@ class MoviesApiView(APIView):
             year=serializer.data.get('year')
             return Response({'message':f'Information about {title}({year}) is succesfully deleted'})
 
-class MoviesViewSet(viewsets.ViewSet):
+class MovieViewSet(viewsets.ModelViewSet):
 
-    serializer_class=serializers.MoviesSerializer
+    serializer_class=serializers.MovieSerializer
+    queryset = models.Movie.objects.all()
 
-    def list(self,request):
-        a_viewset=[
-            'Uses actions (list, create, retrieve, update, partial update) ',
-            'Automatically maps URLs using routers',
-            'more functionality with less code'
-        ]
-        return Response({'message':'Movies', 'a_viewset':a_viewset})
-    def create(self,request):
-        serializer = serializers.MoviesSerializer(data=request.data)
-        if serializer.is_valid():
-            title=serializer.data.get('title')
-            year=serializer.data.get('year')
-            return Response({'message':f'Information about {title}({year}) is succesfully added to the database'})
-        else:
-            return Response(
-                serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    # def list(self,request):
+    #     a_viewset=[
+    #         'Uses actions (list, create, retrieve, update, partial update) ',
+    #         'Automatically maps URLs using routers',
+    #         'more functionality with less code'
+    #     ]
+    #     return Response({'message':'Movies', 'a_viewset':a_viewset})
+    
+    # def create(self,request):
+    #     serializer = serializers.MovieSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         title=serializer.data.get('title')
+    #         year=serializer.data.get('year')
+    #         return Response({'message':f'Information about {title}({year}) is succesfully added to the database'})
+    #     else:
+    #         return Response(
+    #             serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         
-    def retrieve(self,request,pk=None):
-        return Response({'http_method:''GET'})
+    # def retrieve(self,request,pk=None):
+    #     return Response({'http_method:''GET'})
         
-    def update(self,request,pk=None):
-        return Response({'http_method:''PUT'})
+    # def update(self,request,pk=None):
+    #     return Response({'http_method:''PUT'})
         
-    def partial_update(self,request,pk=None):
-        return Response({'http_method:''PATCH'})
+    # def partial_update(self,request,pk=None):
+    #     return Response({'http_method:''PATCH'})
         
-    def destroy(self,request,pk=None):
-        return Response({'http_method:''DELETE'})
-
+    # def destroy(self,request,pk=None):
+    #     return Response({'http_method:''DELETE'})
 
 class UserProfilesApiView(APIView):
     
-    serializer_class=serializers.UserProfilesSerializer
+    serializer_class=serializers.UserProfileSerializer
 
     def get(self, request, format=None):
 
@@ -118,7 +120,7 @@ class UserProfilesApiView(APIView):
     def post(self,request):
         """Say hello to the user"""
 
-        serializer = serializers.UserProfilesSerializer(data=request.data)
+        serializer = serializers.UserProfileSerializer(data=request.data)
 
         if serializer.is_valid():
             name=serializer.data.get('name')
@@ -157,6 +159,38 @@ class UserProfilesApiView(APIView):
         #     return Response({'message':f'Information about the user {name} is succesfully deleted'})
         return Response({'message':f'Information about the user {name} is succesfully deleted'})
 
+class UserProfileViewSet(viewsets.ModelViewSet):
+    
+    serializer_class=serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+
+    # def list(self,request):
+    #     a_viewset=[
+    #         'Uses actions (list, create, retrieve, update, partial update) ',
+    #         'Automatically maps URLs using routers',
+    #         'more functionality with less code'
+    #     ]
+    #     return Response({'message':'Users', 'a_viewset':a_viewset})
+    # def create(self,request):
+    #     serializer = serializers.UserProfileSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         name=serializer.data.get('name')            
+    #         return Response({'message':f'Information about user {name} is succesfully added to the database'})
+    #     else:
+    #         return Response(
+    #             serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+        
+    # def retrieve(self,request,pk=None):
+    #     return Response({'http_method:''GET'})
+        
+    # def update(self,request,pk=None):
+    #     return Response({'http_method:''PUT'})
+        
+    # def partial_update(self,request,pk=None):
+    #     return Response({'http_method:''PATCH'})
+        
+    # def destroy(self,request,pk=None):
+    #     return Response({'http_method:''DELETE'})
 
 
         
