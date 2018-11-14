@@ -6,6 +6,8 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 
+from rest_framework import filters
+
 from . import serializers
 from . import models
 from . import permissions
@@ -77,7 +79,12 @@ class MovieViewSet(viewsets.ModelViewSet):
     queryset = models.Movie.objects.all()
     authentication_classes=(TokenAuthentication,)
     permission_classes=(permissions.UpdateMovie,)
-
+	
+    #filter_backend=(filters.DjangoFilterBackend,)
+    #filterset_class=MovieFilter
+    filter_backends=(filters.SearchFilter,)
+    search_fields=('title','director',)
+    
 
     # def list(self,request):
     #     a_viewset=[
@@ -171,6 +178,9 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.objects.all()
     authentication_classes=(TokenAuthentication,)
     permission_classes=(permissions.UpdateOwnProfile,)
+    
+    filter_backend=(filters.SearchFilter,)
+    search_fields=('name','email',)
 
     # def list(self,request):
     #     a_viewset=[
@@ -199,3 +209,4 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         
     # def destroy(self,request,pk=None):
     #     return Response({'http_method:''DELETE'})
+
