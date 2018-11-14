@@ -4,8 +4,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.authentication import TokenAuthentication
+
 from . import serializers
 from . import models
+from . import permissions
 
 # Create your views here.
 #developer's defined logic for the api
@@ -72,6 +75,9 @@ class MovieViewSet(viewsets.ModelViewSet):
 
     serializer_class=serializers.MovieSerializer
     queryset = models.Movie.objects.all()
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(permissions.UpdateMovie,)
+
 
     # def list(self,request):
     #     a_viewset=[
@@ -163,6 +169,8 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     
     serializer_class=serializers.UserProfileSerializer
     queryset = models.UserProfile.objects.all()
+    authentication_classes=(TokenAuthentication,)
+    permission_classes=(permissions.UpdateOwnProfile,)
 
     # def list(self,request):
     #     a_viewset=[
@@ -191,6 +199,3 @@ class UserProfileViewSet(viewsets.ModelViewSet):
         
     # def destroy(self,request,pk=None):
     #     return Response({'http_method:''DELETE'})
-
-
-        
