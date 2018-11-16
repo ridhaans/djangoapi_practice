@@ -9,6 +9,7 @@ router=DefaultRouter()
 
 router.register('movie', views.MovieViewSet)
 router.register('user', views.UserProfileViewSet)
+router.register('login',views.LoginViewSet, base_name='login')
 
 urlpatterns=[
     path('movies/',views.MoviesApiView.as_view()),    
