@@ -2,25 +2,6 @@ from rest_framework import serializers
 
 from . import models
 
-class MovieSerializer(serializers.ModelSerializer):
-    """Serialize a title field for testing Movies APIView"""
-    class Meta:
-        model=models.Movie
-        fields=('id', 'title', 'duration','year','director','writer')                
-
-    def create(self,validated_data):
-    
-        movie=models.Movie(
-            title=validated_data['title'],
-            duration=(validated_data['duration']*60), #in minutes but the default form is in seconds
-            year=validated_data['year'],
-            director=validated_data['director'],
-            writer=validated_data['writer'],            
-        )       
-        
-        movie.save()
-        return movie
-
 
     # title=serializers.CharField(max_length=255)
     # duration_minute=serializers.IntegerField()
@@ -51,3 +32,24 @@ class UserProfileSerializer(serializers.ModelSerializer):
         # email=serializers.EmailField(max_length=100)
         # password=serializers.CharField(max_length=100,min_length=8,style={'input_type':'password'})
         # password_confirmation=serializers.CharField(max_length=100,min_length=8,style={'input_type':'password','placeholder':"re-enter your password to confirm"})
+
+class MovieSerializer(serializers.ModelSerializer):
+    """Serialize a title field for testing Movies APIView"""
+    class Meta:
+        model=models.Movie
+        fields=('id', 'user_profile', 'title', 'duration','year','director','writer')                
+        extra_kwargs={'user_profile':{'read_only':True}}
+
+    # def create(self,validated_data):
+    
+    #     movie=models.Movie(
+    #         title=validated_data['title'],
+    #         duration=(validated_data['duration']*60), #in minutes but the default form is in seconds
+    #         year=validated_data['year'],
+    #         director=validated_data['director'],
+    #         writer=validated_data['writer'],            
+    #     )       
+        
+    # movie.save()
+    # return movie
+

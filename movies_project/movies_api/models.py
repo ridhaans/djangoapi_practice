@@ -23,6 +23,9 @@ class MovieManager():
 class Movie(models.Model):
     """Represents a movie"""""
     
+    user_profile=models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+
+
     title=models.CharField(max_length=255, unique=True)
     duration=models.DurationField("Duration (minutes)")    
     year=models.IntegerField()

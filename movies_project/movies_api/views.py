@@ -7,6 +7,8 @@ from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+
 
 from rest_framework import filters
 
@@ -77,10 +79,16 @@ class MoviesApiView(APIView):
 
 class MovieViewSet(viewsets.ModelViewSet):
 
+    authentication_classes=(TokenAuthentication,)
     serializer_class=serializers.MovieSerializer
     queryset = models.Movie.objects.all()
-    authentication_classes=(TokenAuthentication,)
-    permission_classes=(permissions.UpdateMovie,)
+    permission_classes=(permissions.UpdateMovieInfo, IsAuthenticatedOrReadOnly)
+    
+    def perform_create(self, serializer):
+        serializer.save(user_profile=self.request.user)
+        
+
+    #permission_classes=(permissions.UpdateMovie,)
 	
     #filter_backend=(filters.DjangoFilterBackend,)
     #filterset_class=MovieFilter

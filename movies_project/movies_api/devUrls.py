@@ -1,4 +1,3 @@
-
 #developer's defined URLs
 from django.urls import path
 from django.urls import include
@@ -15,6 +14,4 @@ urlpatterns=[
     path('movies/',views.MoviesApiView.as_view()),    
     path('users/',views.UserProfilesApiView.as_view()),
     path('',include(router.urls)),
-    
-
 ]
