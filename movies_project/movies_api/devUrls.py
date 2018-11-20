@@ -10,8 +10,8 @@ router.register('movie', views.MovieViewSet)
 router.register('user', views.UserProfileViewSet)
 router.register('login',views.LoginViewSet, base_name='login')
 
-urlpatterns=[
-    path('movies/',views.MoviesApiView.as_view()),    
-    path('users/',views.UserProfilesApiView.as_view()),
+urlpatterns=[    
+    #path('movies/',views.MoviesApiView),
     path('',include(router.urls)),
+    
 ]
