@@ -12,4 +12,8 @@ User list: localhost/api/user
 *show list of user, create a non-admin user, view user's info(by adding "/{id}" or through filter), authenticated user can update their own info(by adding "/{id}")*
 
 Login API: localhost/api/login 
-*to see auth token of the submitted email+password*
+*to see auth token of the submitted email+password => use this to add the token to modHeader (a Chrome's extension)*
+
+here is one superuser
+email:asd@example.com
+password:asd

@@ -20,23 +20,22 @@ from . import permissions
 
 
 class MovieViewSet(viewsets.ModelViewSet):
-
+    
     authentication_classes=(TokenAuthentication,)
     serializer_class=serializers.MovieSerializer
     queryset = models.Movie.objects.all()
+    #only the post owner can update the movie's info and only user can make a post
     permission_classes=(permissions.UpdateMovieInfo, IsAuthenticatedOrReadOnly)
     
     def perform_create(self, serializer):
         serializer.save(user_profile=self.request.user)
-        
-
-    #permission_classes=(permissions.UpdateMovie,)
-	
-    #filter_backend=(filters.DjangoFilterBackend,)
-    #filterset_class=MovieFilter
-    filter_backends=(filters.SearchFilter,)
-    search_fields=('title','director',)
     
+    filter_backends=(filters.SearchFilter,)
+    search_fields=('title','director',)    
+
+    #permission_classes=(permissions.UpdateMovie,)	
+    #filter_backend=(filters.DjangoFilterBackend,)
+    #filterset_class=MovieFilter        
 
     # def list(self,request):
     #     a_viewset=[

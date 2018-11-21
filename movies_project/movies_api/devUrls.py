@@ -6,6 +6,7 @@ from  . import views
 
 router=DefaultRouter()
 
+#defining and register urls of viewset to default router
 router.register('movie', views.MovieViewSet)
 router.register('user', views.UserProfileViewSet)
 router.register('login',views.LoginViewSet, base_name='login')
