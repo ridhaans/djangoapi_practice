@@ -1,1 +1,1 @@
-web: gunicorn movie-api-practice.wsgi
+web: gunicorn movies_project.movies_project.wsgi
