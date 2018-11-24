@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    '../movies_api',
+    'movies_api',
     'django_filters',
 ]
 
